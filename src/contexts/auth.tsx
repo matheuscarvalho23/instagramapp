@@ -3,9 +3,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import * as auth from '../services/auth';
 import api from '../services/api';
+import { useCallback } from 'react';
 
 interface UserData {
-  usename: string;
+  username: string;
+  password: string;
+}
+
+interface LoginCredencials {
+  email: string;
   password: string;
 }
 
@@ -13,7 +19,7 @@ interface AuthContextData {
   logged: boolean;
   user: UserData | null;
   loading: boolean;
-  login(): Promise<void>;
+  login(credentials: LoginCredencials): Promise<void>;
   logout(): void;
 }
 
@@ -39,16 +45,22 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
 
-  async function login() {
-    const response = await auth.login();
+  const login = useCallback(async ({ email, password }) => {
+    const response = await api.post('login', {
+      email,
+      password,
+    });
 
-    setUser(response.user);
+    console.log(response);
 
-    api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
+    // setUser(response.user);
 
-    await AsyncStorage.setItem('@RnAuth:user', JSON.stringify(response.user));
-    await AsyncStorage.setItem('@RnAuth:token', response.token);
-  }
+    // api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
+
+    // await AsyncStorage.setItem('@RnAuth:user', JSON.stringify(response.user));
+    // await AsyncStorage.setItem('@RnAuth:token', response.token);
+
+  }, []);
 
   function logout() {
     AsyncStorage.clear().then(() => {

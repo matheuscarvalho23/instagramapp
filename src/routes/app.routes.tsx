@@ -2,9 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Image } from 'react-native';
 
 import Dashboard from '../pages/Dashboard'
 import colors from '../styles/colors';
+import profilePhoto from '../assets/profile.jpg'
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -91,7 +93,7 @@ const DashboardRoutes: React.FC = () => (
           tabBarIcon: ({ size, focused }) => {
             return (
               <MaterialCommunityIcons
-                name="account"
+                name="cart-outline"
                 size={size}
                 color={focused ? colors.purple : colors.black}
               />
@@ -104,12 +106,11 @@ const DashboardRoutes: React.FC = () => (
         component={Dashboard}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({ size, focused }) => {
+          tabBarIcon: () => {
             return (
-              <MaterialCommunityIcons
-                name="account"
-                size={size}
-                color={focused ? colors.purple : colors.black}
+              <Image
+                source={profilePhoto}
+                style={{ width: 27, height: 27, borderRadius: 13.5 }}
               />
             )
           }
