@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Alert } from 'react-native';
 
-import * as auth from '../services/auth';
 import api from '../services/api';
 import { useCallback } from 'react';
 
@@ -11,7 +11,7 @@ interface UserData {
 }
 
 interface LoginCredencials {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -19,8 +19,8 @@ interface AuthContextData {
   logged: boolean;
   user: UserData | null;
   loading: boolean;
-  // login(credentials: LoginCredencials): Promise<void>;
-  login(): Promise<void>;
+  login(credentials: LoginCredencials): Promise<void>;
+  // login(): Promise<void>;
   logout(): void;
 }
 
@@ -46,37 +46,29 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
 
-  // const login = useCallback(async ({ email, password }) => {
-  //   const response = await api.post('login', {
-  //     email,
-  //     password,
-  //   });
+  const login = useCallback(async ({ username, password }) => {
+    const response = await api.post('login', {
+      username,
+      password,
+    });
 
-  //   console.log(response);
+    const { token, user, status } = response.data;
 
-  //   setUser(response.data);
+    if (status === 'success') {
+      setUser(response.data);
 
-  //   // api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-  //   // await AsyncStorage.setItem('@RnAuth:user', JSON.stringify(response.user));
-  //   // await AsyncStorage.setItem('@RnAuth:token', response.token);
+      await AsyncStorage.setItem('@RnAuth:user', JSON.stringify(user));
+      await AsyncStorage.setItem('@RnAuth:token', token);
+    } else {
+      Alert.alert(
+        'Erro na autenticação',
+        'Usuário ou senha inválida!'
+      );
+    }
 
-  // }, []);
-
-  async function login() {
-    const response = await auth.login();
-
-    // console.log(response);
-
-    setUser(response.user);
-    // setUser(response.user);
-
-    api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
-    // api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
-
-    await AsyncStorage.setItem('@RnAuth:user', JSON.stringify(response.user));
-    await AsyncStorage.setItem('@RnAuth:token', response.token);
-  }
+  }, []);
 
   function logout() {
     AsyncStorage.clear().then(() => {

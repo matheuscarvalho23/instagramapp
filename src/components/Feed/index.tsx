@@ -10,6 +10,7 @@ import {
   FeedProfile,
   FeedUser,
   FeedRow,
+  FeedBorderProfile,
   FeedRowButton,
   FeedPhoto,
   FeedFooter,
@@ -28,9 +29,11 @@ const Feed: React.FC = () => {
     <FeedContainer>
       <FeedHeader>
         <FeedRow>
-          <FeedProfile
-            source={profilePhoto}
-          />
+          <FeedBorderProfile>
+            <FeedProfile
+              source={profilePhoto}
+            />
+          </FeedBorderProfile>
           <FeedUser>neymarjr</FeedUser>
         </FeedRow>
 

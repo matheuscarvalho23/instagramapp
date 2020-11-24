@@ -3,6 +3,7 @@ import React from 'react';
 import {
   List,
   StoriesContainer,
+  StorieBorder,
   StoriesImage,
   StorieUser,
 } from './styles';
@@ -16,7 +17,9 @@ interface ItemProps {
 const Stories: React.FC = () => {
   const StoriesItem: React.FC<ItemProps> = ({ item }) => (
     <StoriesContainer>
-      <StoriesImage source={item.source} />
+      <StorieBorder>
+        <StoriesImage source={item.source} />
+      </StorieBorder>
       <StorieUser>{item.name}</StorieUser>
     </StoriesContainer>
   );

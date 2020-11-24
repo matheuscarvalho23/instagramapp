@@ -5,9 +5,7 @@ export const List = styled.View`
   padding: 8px 0 24px;
 `;
 
-export const FeedContainer = styled.View`
-
-`;
+export const FeedContainer = styled.View``;
 
 export const FeedHeader = styled.View`
   flex: 1;
@@ -17,11 +15,19 @@ export const FeedHeader = styled.View`
   margin: 0 10px 10px 0;
 `;
 
+export const FeedBorderProfile = styled.View`
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border-style: solid;
+  border-color: ${colors.insta};
+  border-width: 2px;
+`;
+
 export const FeedProfile = styled.Image`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  border: 2px solid ${colors.insta};
 `;
 
 export const FeedUser = styled.Text`

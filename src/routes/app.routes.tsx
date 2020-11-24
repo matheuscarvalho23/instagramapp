@@ -5,6 +5,7 @@ import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'react-native';
 
 import Dashboard from '../pages/Dashboard';
+import Profile from '../pages/Profile';
 import colors from '../styles/colors';
 import profilePhoto from '../assets/profile.jpg';
 
@@ -103,7 +104,7 @@ const DashboardRoutes: React.FC = () => (
       />
       <Screen
         name="Profile"
-        component={Dashboard}
+        component={Profile}
         options={{
           tabBarLabel: '',
           tabBarIcon: () => {
