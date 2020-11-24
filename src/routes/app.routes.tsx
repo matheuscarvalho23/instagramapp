@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'react-native';
 
-import Dashboard from '../pages/Dashboard'
+import Dashboard from '../pages/Dashboard';
 import colors from '../styles/colors';
-import profilePhoto from '../assets/profile.jpg'
+import profilePhoto from '../assets/profile.jpg';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -47,7 +47,7 @@ const DashboardRoutes: React.FC = () => (
               <Ionicons
                 name="md-home"
                 size={size}
-                color={focused ? colors.purple : colors.black}
+                color={colors.black}
               />
             )
           }
@@ -60,10 +60,10 @@ const DashboardRoutes: React.FC = () => (
           tabBarLabel: '',
           tabBarIcon: ({ size, focused }) => {
             return (
-              <Ionicons
-                name="md-search"
+              <MaterialCommunityIcons
+                name="magnify"
                 size={size}
-                color={focused ? colors.purple : colors.black}
+                color={colors.black}
               />
             )
           }
@@ -77,9 +77,9 @@ const DashboardRoutes: React.FC = () => (
           tabBarIcon: ({ size, focused }) => {
             return (
               <MaterialCommunityIcons
-                name="compass-outline"
+                name={(focused) ? 'compass' : 'compass-outline'}
                 size={size}
-                color={focused ? colors.purple : colors.black}
+                color={colors.black}
               />
             )
           }
@@ -93,9 +93,9 @@ const DashboardRoutes: React.FC = () => (
           tabBarIcon: ({ size, focused }) => {
             return (
               <MaterialCommunityIcons
-                name="cart-outline"
+                name={(focused) ? 'cart' : 'cart-outline'}
                 size={size}
-                color={focused ? colors.purple : colors.black}
+                color={colors.black}
               />
             )
           }
